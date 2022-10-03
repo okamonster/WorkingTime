@@ -2,10 +2,13 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Router } from './Router/Router';
+import { AuthProvider } from './Context/User';
 
 function App() {
   return (
-    <Router/>
+    <AuthProvider>
+      <Router/>
+    </AuthProvider>
     
   );
 }
