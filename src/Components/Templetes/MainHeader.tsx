@@ -2,15 +2,28 @@ import styled from "@emotion/styled";
 import { Button } from "@mui/material";
 import { signOut } from "firebase/auth";
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { auth } from "../../firebase";
 
 export const MainHeader = () => {
-
-    
-    const onClickLogout = async() => {
+    const navigate = useNavigate();
+    const Logout = async() => {
         await signOut(auth);
-        <Navigate to = {"/"}/>
+        
+    }
+    const onClickWork = () => {
+        navigate("/working");
+        
+    }
+
+    const onClickLog = () => {
+        navigate("/working/log");
+    }
+
+
+    const onClickLogout = () => {
+        Logout();
+        navigate("/");
         
     };
 
@@ -18,8 +31,8 @@ export const MainHeader = () => {
         <SHeader>
                 <h1>WorkingTime</h1>
                 <SHeaderContainer>
-                    <Button variant="outlined" sx={{width:"80px"}}>打刻</Button>
-                    <Button variant="outlined" sx={{width:"80px"}}>勤務履歴</Button>
+                    <Button variant="outlined" sx={{width:"80px"}} onClick={onClickWork}>打刻</Button>
+                    <Button variant="outlined" sx={{width:"80px"}} onClick={onClickLog}>勤務履歴</Button>
                     <Button variant="outlined" sx={{width:"80px"}}>変更届</Button>
                     <Button variant="outlined" sx={{width:"80px"}} onClick={onClickLogout}>ログアウト</Button>
                 </SHeaderContainer>
