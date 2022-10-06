@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Button } from "@mui/material";
-import { addDoc, collection, doc, serverTimestamp, updateDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, serverTimestamp, updateDoc } from "firebase/firestore";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { db } from "../../firebase";
@@ -46,16 +46,20 @@ export const TimeCard = (props:any) => {
         setNowWorking(false);
         
         try{
+
             if(currentUser != undefined){
+                
                 await updateDoc(doc(db,currentUser?.uid,currentDocId),{
                     type:"勤務終了",
                     nowWorking:false,         
                     endtime:serverTimestamp(),
+                    salary:"0"
+        
                 });
             }else{
                 navigate("/");
             }
-            
+
         }catch(err) {
             console.log(err);
         }

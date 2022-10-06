@@ -26,7 +26,7 @@ const AuthProvider = (props:any) => {
                 setSignInCheck(true);
             }
         });
-    });
+    },[]);
 
     if(signInCheck){
         return(
