@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { async } from "@firebase/util";
 import { Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import { collection, getDoc, getDocs, orderBy, query, where } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
@@ -74,7 +73,7 @@ export const WorksLog = () => {
                                     :{doc.endtime ? doc.endtime.toDate().getMinutes():"00"}
                                 </TableCell>
                                 <TableCell>
-                                    {doc.endtime ? Math.floor(Math.floor((doc.endtime.toDate()-doc.starttime.toDate())/(1000*60))*(1000/60)): ""}
+                                    {doc.salary ? doc.salary: ""}
                                 </TableCell>
                             </TableRow>
                             

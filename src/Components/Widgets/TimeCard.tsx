@@ -9,28 +9,30 @@ export const TimeCard = (props:any) => {
     const currentUser = props;
     const navigate = useNavigate();
     const [nowWorking,setNowWorking] = useState<boolean>(false);
+    const [currentDocId,setcurrentDocId] = useState("");
     const [today,setToday] = useState( new Date());
     const [dayOfWeek,setDayofWeek] = useState( today.getDay());
-    const [currentDocId,setcurrentDocId] = useState(""); 
+ 
     setInterval( () => {
         setToday(new Date());
         setDayofWeek(today.getDay());
     },1000);
     const dayOfWeekStr = ["日","月","火","水","木","金","土"];
 
-    
     const WorkStart = async() => {
         setNowWorking(true);
         
         try{
                
             if(currentUser != undefined) {
+                
                 const docRef = await addDoc(collection(db,currentUser?.uid),{
                     type:"勤務中",
                     nowWorking:true,
                     starttime:serverTimestamp(),        
                 });
                 setcurrentDocId(docRef.id)
+
             }else{
                 navigate("/");
             }
@@ -42,28 +44,35 @@ export const TimeCard = (props:any) => {
         console.log(nowWorking)
     }
 
+
+
     const WorkEnd = async() => {
         setNowWorking(false);
-        
+        const docRef = doc(db,currentUser?.uid,currentDocId);
+        const docSnap = await getDoc(docRef);
+        const salary = Math.floor(Math.floor((Date.now() - docSnap.data()?.starttime.toDate())/(1000*60))*(1000/60))
+    
         try{
 
-            if(currentUser != undefined){
-                
+            currentUser ? (
                 await updateDoc(doc(db,currentUser?.uid,currentDocId),{
                     type:"勤務終了",
                     nowWorking:false,         
                     endtime:serverTimestamp(),
-                    salary:"0"
+                    salary:salary,
         
-                });
-            }else{
-                navigate("/");
-            }
-
+                })
+            ):navigate("/");
+        
+                
         }catch(err) {
             console.log(err);
         }
     }
+
+    
+    
+
 
     return (
         <STimeCard>
