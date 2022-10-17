@@ -21,20 +21,13 @@ export const MainHeader = () => {
     }
 
 
-    const onClickLogout = () => {
-        Logout();
-        navigate("/");
-        
-    };
-
     return (
         <SHeader>
                 <h1>WorkingTime</h1>
                 <SHeaderContainer>
                     <Button variant="outlined" sx={{width:"80px"}} onClick={onClickWork}>打刻</Button>
                     <Button variant="outlined" sx={{width:"80px"}} onClick={onClickLog}>勤務履歴</Button>
-                    <Button variant="outlined" sx={{width:"80px"}}>変更届</Button>
-                    <Button variant="outlined" sx={{width:"80px"}} onClick={onClickLogout}>ログアウト</Button>
+
                 </SHeaderContainer>
         </SHeader>
             
