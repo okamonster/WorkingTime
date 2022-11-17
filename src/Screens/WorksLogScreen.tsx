@@ -16,9 +16,11 @@ export const WorksLog = () => {
             
            const getDocument = async() => {
                 const q = query(collection(db,currentUser?.uid),orderBy("starttime","asc"));
+        
                 await getDocs(q).then((snapshot) => {
-                    setDocument(snapshot.docs.map((doc) => ({...doc.data()})))
                     
+                    setDocument(snapshot.docs.map((doc) => ({...doc.data()})))
+    
                 })
            }
            
@@ -35,7 +37,7 @@ export const WorksLog = () => {
 
     
 
-    
+
     return(
         <SWorksLog>
             
